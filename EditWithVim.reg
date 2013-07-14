@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\Shell\edit with vim]
+@="Edit with vim"
+
+[HKEY_CLASSES_ROOT\*\Shell\edit with vim\command]
+@="\"D:\\software\\gVimPortable\\vim73\\gvim.exe\" \"%1\""
