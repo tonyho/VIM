@@ -17,7 +17,9 @@ Vim/Gvim
 2. Install the vim(or gvim) using the proper commands, for example in Ubuntu: `sudo apt-get install vim`
 3. Install the cscope, ctags and taglist plugin.
 4. Move the _vimrc file to you home directory, and rename it to .vimrc
-5. Move the vimfiles directory to you home directory, and rename it to .vim
+5. Move the vimfiles directory to you home directory, and rename it to .vim,then clone the vundle:
+
+ `git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle`
 # For Cygwin #
 These is no much different between cygwin and linux to use vim.  
 
