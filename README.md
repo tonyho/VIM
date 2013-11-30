@@ -13,11 +13,11 @@ Vim/Gvim
 
 # For Linux #
 
-1. Clone this repo.
+1. Clone this repo. eg: `mkdir ~/github` `cd ~/github` `git clone https://github.com/tonyho/VIM.git`
 2. Install the vim(or gvim) using the proper commands, for example in Ubuntu: `sudo apt-get install vim`
-3. Install the cscope, ctags and taglist plugin.
-4. Move the _vimrc file to you home directory, and rename it to .vimrc
-5. Move the vimfiles directory to you home directory, and rename it to .vim,then clone the vundle:
+3. Install the cscope, ctags and taglist plugin. eg: `sudo apt-get install ctags cscope`
+4. Move the _vimrc file to you home directory, and rename it to .vimrc. Or make ln to it `cd ~ && ln -s  ~/github/VIM/_vimrc  .vimrc`
+5. Move the vimfiles directory to you home directory, and rename it to .vim,or ln it `ln -s  ~/github/VIM/vimfiles/ .vim` ;then clone the vundle:
 
  `git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle`
 # For Cygwin #
