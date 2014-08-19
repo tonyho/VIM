@@ -23,6 +23,21 @@ Vim/Gvim
 # For Cygwin #
 These is no much different between cygwin and linux to use vim.  
 
+# Post clone, we should install the plugins #
+Since we use the vundle to manage the plugins, we should install the plugins. Open a terminal, then open the vim:
+    `vim`
+In Vim, we just call the PluginInstall to let the vundle install all the needed plugins:
+    `:PluginInstall`
+After do this, the vundle will auto install the plugins. 
+
+If error occurs, use the `l` to see the logs, or save it the a file. Usually, there're 2 kinds of error:
+1. Git repo not existed anymore:
+    We should search in github to a new repo, see the _vimrc content for reference.
+2. Plugin directory already existed in vimfiles/vundle, so just delete it.
+
+About the vundle, you can refer this artcle: [How To Use Vundle to Manage Vim Plugins on a Linux VPS](https://www.digitalocean.com/community/tutorials/how-to-use-vundle-to-manage-vim-plugins-on-a-linux-vps)
+    
+
 ----------
 
 ----------

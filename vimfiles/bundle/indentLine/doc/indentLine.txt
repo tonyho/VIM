@@ -46,6 +46,16 @@ g:indentLine_color_gui                          *g:indentLine_color_gui*
                 Specify GUI vim indent line color.
                 e.g.  let g:indentLine_color_gui = '#A4E57E'
 
+g:indentLine_color_tty_light                    *g:indentLine_color_tty_light*
+                Specify none X terminal vim indent line color in bg light.
+                default: 4
+                e.g.  let g:indentLine_color_tty_light = 7
+
+g:indentLine_color_tty_dark                     *g:indentLine_color_tty_dark*
+                Specify none X terminal vim indent line color in bg dark.
+                default: 2
+                e.g.  let g:indentLine_color_tty_dark = 1
+
 g:indentLine_indentLevel                        *g:indentLine_indentLevel*
                 Specify how much indent level do you want to use for
                 indentLine. Most program will not has bigger indent level than
@@ -74,7 +84,7 @@ g:indentLine_fileTypeExclude                    *g:indentLine_fileTypeExclude*
                 This variable specify a list of file types.
                 When opening these types of files, the plugin is disabled by
                 default.
-                e.g. let g:indentLine_fileType = ['text', 'sh']
+                e.g. let g:indentLine_fileTypeExclude = ['text', 'sh']
                 Default value is [] which means no file types is excluded.
 
 g:indentLine_bufNameExclude                     *g:indentLine_bufNameExclude*
@@ -83,6 +93,22 @@ g:indentLine_bufNameExclude                     *g:indentLine_bufNameExclude*
                 the indentLine won't display.
                 e.g. let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
                 Default value is [].
+
+g:indentLine_maxLines                           *g:indentLine_maxLines*
+                This variable specify a number, when the number of buffer's
+                lines exceed it, the plugin try to use another pattern to make
+                the performance better.
+                Default value is 3000.
+
+g:indentLine_faster                             *g:indentLine_faster*
+                If you want the performance better, you can set the value as
+                1, default value is 0. But better performance may bring little
+                issue with it.
+
+g:indentLine_noConcealCursor                    *g:indentLine_noConcealCursor*
+                This variable toggles cursor lines behavior. If variable
+                exists, then cursorline will be above conceal chars.
+                Default value is not set.
 
 ==============================================================================
 COMMANDS                                         *indentLine-commands*
@@ -94,8 +120,20 @@ IndentLinesReset [number]
 
 IndentLinesToggle
                 toggle the indent lines of the current buffer.
+
+IndentLinesEnable
+                enable the indent lines of the current buffer.
+
+IndentLinesDisable
+                disable the indent lines of the current buffer.
+
 ==============================================================================
 FAQ                                              *indentLine-faq*
+
+Q. How can I make the indent line visuall similar to the line used in Sublime
+    Text 2?
+
+A. Use let g:indentLine_char = '┊'
 
 ==============================================================================
 CHANGELOG                                        *indentLine-changelog*

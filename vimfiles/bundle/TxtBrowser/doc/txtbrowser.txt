@@ -1,198 +1,197 @@
-*txtbrowser*        "纯文本浏览器": 浏览纯文本的插件 
+*txtbrowser*    Plugin for browsing plain text 
 
-适用Vim版本: 6.0 and above
+For Vim version 6.0 and above
 "Author: ypguo<guoyoooping@163.com>
 "Date: 2011/08/07
 "Release version: 1.3.5
 
- 1 简介~                                                 |txt-introduction|
- 2 安装指南~                                             |txt-install|
-       2.1 安装插件
-       2.2 卸载
- 3 功能和使用说明                                        |txt-howto|
-       3.1 语法高亮功能                                  |txt-highlight|
-       3.2 浏览文档的标题                                |txt-browser-title|
-       3.3 浏览文档的图列表和表列表                      |txt-browser-table|
-       3.4 浏览文档中的URL                               |txt-browser-url|
-       3.5 在文档中查字典                                |txt-browser-dict|
-       3.6 在文档中调用搜索引擎搜索                      |txt-browser-search|
-       3.7 一些花哨的其它功能                            |txt-extra_function|
-       3.8 开发中的功能                                  |txt-todo|
- 4 偏好定制                                              |txt-options|
-       4.1 标题级数                                      |txt-title-level|
-       4.2 定制自己的字典                                |txt-title-level|
-       4.3 定制自己的搜索引擎                            |txt-search-engine|
-       4.4 更多的定制功能                                |txt-custoize-more|
- 4 语法元素的定义和说明                                  |txt-element|
-       5.1 文本标题                                      |txt-title|
-       5.2 文本图                                        |txt-figure|
-       5.3 文本表                                        |txt-table|
-       5.4 文本关键字                                    |txt-keywords|
-       5.5 文本超键接                                    |txt-url|
-       5.6 文本Email的关键词                             |txt-email|
-       5.7 文本引号内文字                                |txt-quotes|
-       5.9 文本括号内文字                                |txt-bracket|
-       5.9 文本列举                                      |txt-list|
-       5.10 文本引用                                     |txt-reference|
- 6 常见的问题                                            |txt-faqs|
-       6.1 有关Windows下中文文件名(或其它宽字节语言)的taglist不能显示的问题
-       6.2 文档更新后taglist好像无法及时更新.
-       6.3 taglist窗口里标题被显示多次
-       6.4 taglist窗口标题不能正常显示:
- 7 问题反馈~                                             |txt-bug|
- 8 版权                                                  |txt-license|
- 9 发行记录~                                             |txt-changelog|
+ 1 Overview                                            |txt-introduction|
+ 2 Installation                                        |txt-install|
+       2.1 Install
+       2.2 Uninstall
+ 3 features and howto use                              |txt-howto|
+       3.1 syntax hightlight                           |txt-highlight|
+       3.2 Browser the title                           |txt-browser-title|
+       3.3 Browser the tables and figures              |txt-browser-table|
+       3.4 Browser the URL in the files                |txt-browser-url|
+       3.5 Lookup the dictionary                       |txt-browser-dict|
+       3.6 Search Word    in the internet              |txt-browser-search|
+       3.7 Features in develop                         |txt-todo|
+       3.7 fancy functions                             |txt-extra_function|
+       3.8 Other features                              |txt-browser-others|
+ 4 Options                                             |txt-options|
+       4.1 customize title level                       |txt-title-level|
+       4.2 customize web dictionary                    |txt-dict|
+       4.3 customize the search engine                 |txt-search-engine|
+       4.4 Other options                               |txt-custoize-more|
+ 5 Element Definition                                  |txt-element|
+       5.1 Text title                                  |txt-title|
+       5.2 Text figure                                 |txt-figure|
+       5.3 Text table                                  |txt-table|
+       5.4 Text keywords                               |txt-keywords|
+       5.5 Text url                                    |txt-url|
+       5.6 Text email                                  |txt-email|
+       5.7 Text quotes                                 |txt-quotes|
+       5.8 Text parentheses                            |txt-parentheses|
+       5.9 Text bracket                                |txt-bracket|
+       5.10 Text reference                             |txt-reference|
+ 6 Fequently Answered questions                        |txt-faqs|
+       6.1 Windows Chinese(and others) couldn't or list irrecognizable taglist
+       6.2 Taglist not updated after the file changed.
+       6.3 taglist show every title 2 times.
+       6.4 taglist show title in wrong order:
+ 7 Bug report~                                         |txt-bug|
+ 8 License                                             |txt-license|
+ 9 Changelog                                           |txt-changlog|
 
 ==============================================================================
-1. 简介~                                                *txt-introduction*
+1. Overview~                         *txt-introduction*
 
-"纯文本浏览器"是一个vim文本浏览插件, 借助它你可以实现高效地浏览你的纯文本文件:
+The "TxtBrowser" plugin is a plain text browser plugin for Vim and provides the
+following features to allow you to efficiently browse through plain text
+files(for example RFCs).
 
-1) 为文本文件生成标题标签: 用Vim打开纯文本文件, 执行":Tlist"命令即可生成纯文本
-文件的目录树, 点击标签就可实现跳转到正文, 就像在使用 taglist浏览C代码一样. 方
-便你的浏览. 修改内容后用命令 ":TlistUpdate"即可完成刷新. 建议使用映射以提高效
-率:
+1) Title tag list: Show an overview of the structure of plain text and list all
+the titles in the taglist windows, you can jump to them just by clicking. Use
+":Tlist" command to open the taglist and use ":TlistUpdate" to update the
+taglist after modification.
 
-	nmap <silent> <F8> <ESC>:Tlist<RETURN>)
-	noremap <silent> <F5> <ESC>:TlistUpdate<RETURN>
+2) Syntax highlight: highlight the key element in your plain text. This include
+the title, URLs, keywords you defined(default is TODO, ERROR, etc), Words in
+bracket, etc. Syntax hightlight would be auto loaded after install. Snapshot of
+feature 1 and 2 are available at:
 
-2) 语法高亮: 如果你经常从事文字工作, 想必认为纯文本是"黑白"的吧. "纯文本浏览"
-插件为你的文档加上语法高亮, 使关键的部分有颜色, 突出显示标题, 关键字, 列举项, 
-我想一定会增加你的浏览效率. 语法高亮的加载是自动完成的, 也就是说你只要打开扩展
-名为.txt 的文件 , "纯文本浏览插件"就会为你的文档加上语法高亮. 用":colorscheme
-colorname"命令多试几种颜色方案吧, 也许你会发现原来纯文本也如此丰富多彩.
+http://guoyoooping.blog.163.com/album/edit/#m=1&aid=193892890
 
-3) 浏览功能
+3) Browser Utilities(|txt-howto|):
 
-<Leader>s: 用搜索引擎(可定制, 默认为google)搜索光标下的单词或选中的文本.
-<Leader>f: 用网络字典(可定制, 默认为google.cn)对光标下的单词或选中的文本查字典.
-<Leader>g: 打开光标下或选中的URL.
+<Leader>s: Search word under cursor(or selected) by search engine(google)
+<Leader>f: Find word under cursor(or selected) by web dictionary(www.dict.cn).
+<Leader>g: Goto the URL under cursor(or selected).
 
-本插件启动后语法高亮和标题标签打开的效果图: 
+Compared to othere scripts which have similar function, TxtBrowser needn't
+modify your document, You could open other people's document(For example the
+RFC documents) and apply this plugin to it and you would get the title tag and
+syntax highlight.
 
-	http://guoyoooping.blog.163.com/album/edit/#m=1&aid=193892890
-
-本插件自己生成标题, 图, 表标签, 但是相比其它类似功能的插件, 不需要在文档里做任
-何特殊标记, 兼容性强. 例如任一个rfc文档打开即可实现目录树和语法高亮. 拷贝
-taglist窗口里的目录到正文里, 即可以做为正文的目录. 用于语法高亮的文本元素可以
-随意定制, 真正实现个性化. 无需要修改.
-
-本插件同时支持gvim和控制台 , 同时所有的操作系统, 当然前提是ctags能工作.
+It is expected that TxtBrowser works where vim and ctags works.
 
 ==============================================================================
-2. 安装指南~                                                 *txt-install*
+2. Installation~                     *txt-install*
 
-2.1 安装插件
+2.1 Install
 
-1)请首先安装taglist插件 (http://www.vim.org/scripts/script.php?script_id=273).
+1) Please make sure taglist(vimscript #273: taglist.vim) has been installed.
 
-[注意]: 由于taglist插件对中文(其实还包括CJK, 即中, 日, 韩等其它语言)支持不太好
-, 因此强烈建议中文用户(CJK)打上作者提供的patch: taglist.diff, 或者使用作者提供
-的修正版的 taglist.vim. 这个下载将在taglist.vim的作者修正这些问题后将删掉.
+[Note]: Taglist has problem in supporting Chinese(CJK: Chinese, Japanese,
+Korean), So I give a patch to taglist.vim. It is strongly recommended to apply
+that patch or use the taglist.vim I provided. I will not provide the patch
+after taglist fix these bugs.
 
-2. 下载插件后解压缩到目录$HOME/.vim(或$HOME/vimfiles, $VIM/vimfiles)即可, 安装
-完成后你的文件夹下应该有下面的几个文件(请注意目录结构):
+2) Download the txtbrowser.zip file and unzip the files to the $HOME/.vim or
+the $HOME/vimfiles or the $VIM/vimfiles directory. After this step, you should
+have the following five files (the directory structure should be preserved):
 
-	* $HOME/.vim/syntax/txt.vim - 用于标题标签的生成.
-	* $HOME/.vim/syntax/txt.vim - .txt文件的语法高亮文件.
-	* $HOME/.vim/plugin/txtbrowser.vim - 浏览工具.
-	* $HOME/.vim/doc/txtbrowser.txt - 英文帮助文档.
-	* $HOME/.vim/doc/txtbrowser.cnx - 中文帮助文档.
+* $HOME/.vim/syntax/txt.vim - syntax for text/plain.
+* $HOME/.vim/ftplugin/txt.vim - language definition for text/plain.
+* $HOME/.vim/plugin/txtbrowser.vim - browser tools.
+* $HOME/.vim/doc/txtbrowser.txt - help document in English.
+* $HOME/.vim/doc/txtbrowser.cnx - help document in Chinese.
 
-安装后别忘了打开txtbrowser.txt然后执行 ":helptags ."生成标签.
+Don't forget to open the file and Use ":helptags ." to install help tag.
 
-3)在你的.vimrc文件里加入下面三行, 然后重启你的Vim:
+3) Add the following line into your .vimrc file and restart your vim.
 
-	syntax on
-	filetype plugin on
-	au BufRead,BufNewFile *.txt setlocal ft=txt
+syntax on "syntax highlighting on
+filetype plugin on
+au BufRead,BufNewFile *.txt setlocal ft=txt 
 
-好了, 现在用Vim一个纯文本文件(打开本文也行), 执行":Tlist"命令, 现在你看到了什
-么? 你的纯文本将拥有漂亮的树状标签和语法高亮, 详情请参考 |txt-howto|.
+[Note]Since the plugin name changed after release 1.1.1, If you update version
+before 1.1.1, please uninstall the old version at first.
 
-[注意]本插件从版本1.1.1开始, 插件名正式从"txt.zip"更改为"TxtBrowser", 在这个版
-本之前的版本升级需要先卸载老版本.
+[Note]Since the infrastructure changed for easy instal, If you update version
+before 1.2.1, please delete the old .ctags file at first.
 
-[注意]本插件从版本1.2.1开始, 插件结构进行了重大调整, 方便了用户安装. 在这个版
-本之前的版本升级需要先卸载掉老的.ctags文件.
+[Note]"TxtBorwser" collaborate well with other plugins, take vimscript #2208:
+txtfmt as example, You could simply added the following 2 autocommands to your
+.vimrc after the line `setlocal ft=txt' as described above:
 
-[注意]"文本浏览"插件可以和别的插件同时工作, 包括别的文件插件. 以"#2208:
-txtfmt"为例, 在你的.vimrc文件里加入下面两行即可(最好加在setlocal ft=txt这行之
-后):
+    au BufRead,BufNewFile *.txt runtime ftplugin/txtfmt.vim
+    au BufRead,BufNewFile *.txt runtime syntax/txtfmt.vim 
 
-        au BufRead,BufNewFile *.txt runtime ftplugin/txtfmt.vim
-        au BufRead,BufNewFile *.txt runtime syntax/txtfmt.vim 
+2.2 Uninstall
 
-2.2 卸载
-
-根据上节的目录结构, 直接到相应的目录下将其文件删除即可, 不会残留下任何东东.
+To uninstall the taglist plugin, remove the files listed above directly.
 
 ==============================================================================
-3. 功能和使用说明                                       *txt-howto*
+3. features and howto use                                   *txt-howto*
 
-经过第一部分的简介和第二部分安装过程的预览, 你一定对本插件有了比较感性的认识. 
-本章则带你更深入地了解"纯文本浏览"插件的使用, 有时候你可能需要定制更适合你的配
-置.
+After the install and preview, you must have a perceptual concept about the
+"TxtBrowser" plugin. I will intruduce the detail about how to use these
+features in this chapter.
 
-3.1 语法高亮功能                                        *txt-highlight*
+3.1 syntax hightlight                    *txt-highlight*
 
-如果你经常从事文字工作, 想必认为纯文本是"黑白"的吧. "纯文本浏览"插件为你的文档
-加上语法高亮, 使关键的部分有颜色, 突出显示标题, 关键字, 列举项, 我想一定会增加
-你的浏览效率. 语法高亮的加载是自动完成的, 也就是说你只要打开扩展名为.txt的文件
-, "纯文本浏览插件"就会为你的文档加上语法高亮. 用":colorscheme colorname"命令多
-试几种着色方案吧, 也许你会发现原来纯文本也如此丰富多彩.
+The feature of syntax hightlight make you document highlight the key part,
+which include the title, keywords, list, etc. This features is loaded
+automatically whenever you open your .txt document. It is recommented that try
+other colorscheme to find the best display of your document.
 
-有一些文件不以.txt结尾, 但事实上也是纯文本, 我能让它也显示语法高亮吗? 答案是肯
-定的, 打开文件后, 只需要执行一下下面的命令即可:
+Some documents that don't have the extension "txt" are indeed plain text
+documents. You could view these document with syntax highlight. How to do it?
+After open these documents, use the command ":set ft=txt" to explicitly tell
+the Vim to highlight.
 
-        :set ft=txt
+For example, I often view the .log files, I could view the highlight after the
+above setting. But it seems that it is a common file type I need to view, so I
+add the following line to my .vimrc file to automatically add the syntax
+hightlight:
 
-我在工作经常用到.log文件, 用这个方法能让我的log文件高亮关键字, 浏览起来挺方便
-的. 当然, 对于经常使用浏览log文件的也可以在你的.vimrc里加上下面的命令, 就不用
-每次都在vim里敲命令了.
+    au BufRead,BufNewFile *.log setlocal ft=txt
 
-        au BufRead,BufNewFile *.log setlocal ft=txt
+3.2 Browser the title                            *txt-browser-title*
 
-3.2 浏览文档的标题                                 *txt-browser-title*
+If your are a programmer, you must have used the "taglist" plugin to browser
+your code. Think about use the same method to browser plain text files. The
+"TxtBrowser" plugin make it possible to browser plain text files as browser C
+programme. Use ":Tlist" command to open the taglist window, Your title will be
+listed in the window. Just by clicking the tag, you would jump where the title
+is. This is the same as jumping to where the figures and tables are defined.
 
-如果你是一个程序员, 如果你用过taglist插件浏览源代码, 那你一定非常熟悉通过
-taglist窗口定位函数. 纯文本浏览插件的使用完全一样. 插件安装 完成后, 用
-Vim(Gvim)打开文档, 执行":Tlist"后会开一个taglist窗口, 在这个窗口里列出文章的小
-标题, 图列表和表列表. 用鼠标点击标签即可跳转到正文定义处, 就像在使用 taglist浏
-览C代码一样.
+Suppose you want to add the table of content to you file after you finish edit.
+It's easy with the "TxtBrowser" plugin. Just copying the table of content from
+the taglist window and paste it to where you want to put.
 
-有些正式一点的文档需要一个目录, 用"纯文本浏览"插件很容易完成这件事情. 完成文档
-的写作后, 打开taglist窗口, 选中目录, 拷贝过来粘贴到正文中即可.
+How vim know whick is title and which is the table? Let's read the RFC documnet
+and find something.
 
-Vim也不是神仙, 它是怎么知道你的文档里哪里是标题呢? 别急, 我们先分析一下人们写
-文档的习惯, 那就让我们用rfc文档做分析吧.
+In general, RFC documents have a cover, and the table of content, and then the
+main body. We don't care abuot these. What we care is how the titles are
+defined. Aha, We found the titles start with a digit, and a symbol "." and then
+the name. That comply to people's habit. So we define titles as above. Please
+see Chapter4 "Element Definition" for details of how these are defined.
 
-rfc文档通常在第一页会有一个封面, 然后是目录, 接着就是正文, 这些我们都不关心.
-我 们真正关心的是它的标题的格式. rfc文档通常的标题都是以"数字" + 符号"." + "空
-格" 打头, 也就是说, 以"数字"+符号"." + "空格"打头的行就是标题了. 哈, 原来这么
-简单! 
+In the meantime, it's highly recommended to use the formal title format.
 
-因此作者建议自己在撰写文档的时候, 不仅要采用标准的内容, 最好也要采用通用的格式
-标准, 不仅方便自己的浏览, 同时也便于大家的交流.
+3.3 Browser the tables and figures                     *txt-browser-table*
 
-3.3 浏览文档的图列表和表列表                                *txt-browser-table*
+Some documents have a plenty of tables and figures. It might difficult to
+locate them. But with "TxtBrowser" plugin you could rapidly locate them just by
+clicking the tag. The method of use is the same as Chapter 3.2 "Browser the
+title".
 
-有些文档引用了大量的图和表, 有时需要快速的定位他们, "纯文本浏览"插件提供了高效
-的定位的手段, 方法和上一节"浏览文档的标题"一样, 直接在taglist窗口点击相应的图
-或表即可定位到正文.
+3.4 Browser the URL in the files                        *txt-browser-url*
 
-3.4 浏览文档中的URL                                        *txt-browser-url*
+Sometimes we want browser the url in the files. Do you need to open a web
+browser and type the address? It's not required. After release 1.1.1, just
+putting the cursor to the url and use command ":TGoto" to open the url.
+Alternatively you could use map "<Leader>g" to open the url. Here is <Leader>
+is the key of your "mapleader" value. If you didn't define that value, it is
+"\" key in the keyboard. That means, you type the "\" and "g" would open your
+url.
 
-有时候想访问文档中的URL(如网页, Email地址, 文件等), 还需要打开一个网页浏览器, 
-在地址中输入地址才能查看.
-
-"纯文本浏览"插件从1.1.1版本起提供了从文档中直接打开URL的功能. 使用方法为将光标
-放到URL上, 执行命令":TGoto"即可, 也可以执行下面默认的映射:
-
-        <Leader>g 
-
-实际上这里的URL是广义的URL, 不光支持打一个http链接, 还支持file://, mailto://等
-格式 , 从1.2.8版本开始， 还将支持简写的Url, 如下面的URL都可以支持:
+In fact, The URL include not only the http link, but also the file:// and
+mailto:// ect. For example the following URLs are supported:
 
 	http://guoyoooping.blog.163.com
 	www.vim.org
@@ -203,162 +202,173 @@ rfc文档通常在第一页会有一个封面, 然后是目录, 接着就是正�
 	../audio/Childhood.Memory.ape
 	ftp://10.208.16.10
 
-将光标放到该URL上, 或者选中该URL, 执行<Leader>g, 即可调用系统默认播放器, 开始
-播放这个文件. 实际上, 所有系统支持的文件格式, 如.jpg, .pdf文件等效果都是一样的
-.
+Put your cursor on it(or select it) and use <Leader>g to play it by your
+favorite player. It's the same as about other file type such as .jpg, .pdf,
+etc.
 
-[注意]这里<Leader>是"mapleader"变量的值, 如果你没有做过设置, 这个值一般是"\", 
-即就是说你把光标放到URL上, 只需要敲一个"\"键, 然后再敲一下"g"键即可. 作者建议
-你设置自己"mapleader"的值(如用命令let mapleader = ","设置成","键), 因为我们的
-小拇指负担太重了, 设置到别的手指上有助于保护你的小拇指的健康^)^
+3.5 Lookup the dictionary                               *txt-browser-dict*
 
-3.5 在文档中查字典                                        *txt-browser-dict*
+Sometimes you might need to lookup the dictionary. "TxtBrowser" provide a
+means to lookup the words in dictionary web page. How to use? Just put your
+cursor to the word or select the word you want to lookup, and then use command
+":TFind". Alternatively you could use map "<Leader>f". 
 
-不知道你英语好不好, 有时候看英文文档的时候遇到不认识的单词怎么办? "纯文本浏览"
-插件提供了一个途径, 把光标放到单词上, 或者选中要查找的单词， 执行命令 ":TFind"
-或下面的映射即可打开在线词典查单词.
+I set the google English/Chinese dictionary to the defaut dictionayr web page.
+It's easy to set your own prefered dictionary(|txt-dict|). 
 
-        <Leader>f 
+3.6 Search Word in the internet                          *txt-browser-search*
 
-默认的在线词典是google/dictionary, 你也可以定制你自己喜欢的词典, 请参考
-|txt-dict|.
+Sometimes you might search a hot word in your document by some search engine,
+such as Google. "TxtBrowser" provide a new feature to open the search result
+just by a command ":TSearch" or the following map:
 
-3.6 在文档中调用搜索引擎搜索                        *txt-browser-search*
+    <Leader>s
 
-有时候在浏览文档的时候看见一个热门词汇? 想要调用google搜一下吗? "纯文本浏览" 
-插件提供了一个快捷途径, 把光标放到单词上, 或选中要查找的文本，执行命令
-":TSearch"或下面的映射即可打开在线词典查单词.
+The defaut search engine is www.google.com, You can custimize you prefered
+search engine(|txt-browser-search|).
 
-        <Leader>s
+3.7 fancy functions                                    *txt-extra_function*
 
-默认搜索引擎是www.google.com , 你也可以定制你自己喜欢的搜索引擎, 请参考
-|txt-search-engine|
+I add some fancy functions as blow, which is not of much use, but is
+interesting and harmless, you are welcome to have a try. put the cursor to the
+word or select the text and then right click, select "TxtBrowser" and then:
 
-3.7 一些花哨的其它功能                                   *txt-extra_function*
+In Normal/Insert mode:
 
-将光标放到目录单词下, 或者用鼠标选中相应的文本, 点击鼠标右键, 然后选择"文本浏
-览工具", 可以实现下面的功能, 比较花哨, 可能没什么用处, 还有一些没有解决的难题
-(比如无法防水这些高亮), 但是没有什么害处, 所以推荐大家尝试一下:
+    Make bold: choose bold font for the word under cursor 
+    Make italic: choose italic font for the word under cursor 
+    Make red: make the words under cursor red
+    Make green: make the words under cursor green
+    Make Blue: make the words under cursor blue 
 
-Normal模式和插入模式下: 
-    加粗: 将光标下的单词变成粗体
-    变斜: 将光标下的单词变成斜体
-    加红: 将光标下的单词变成红色
-    加绿: 将光标下的单词变成绿色
-    加蓝: 将光标下的单词变成蓝色
+In Select mode:
 
-选择模式下:
+    Make bold: choose bold font for the word selected 
+    Make italic: choose italic font for the word selected 
+    Make red: make the words selected red
+    Make green: make the words selected green
+    Make Blue: make the words selected blue 
 
-    加粗: 将选中的单词变成粗体
-    变斜: 将选中的单词变成斜体
-    加红: 将选中的单词变成红色
-    加绿: 将选中的单词变成绿色
-    加蓝: 将选中的单词变成蓝色
+3.8 Other features                *txt-browser-others*
 
-3.8 开发中的功能                                                *txt-todo*
+New features(for example offline words lookup, selected word lookup, etc) are
+to be released in the following release. Please Pay attention to it:
 
-其它功能, 正在开发中... 请关注最新动向. 同时欢迎给作者写信或登录作者的博客
-(http://guoyoooping.blog.163.com)表达您想要的功能, 同时欢迎提供技术支持.
+* Hightlight the text under the cursor or selected(multi line).
+* Search the text selected(multi line).
+* The title tag support fold.
+* Support Chinese number to difine a title.
+* some rich text format support.
 
-	* 标题标签支持折叠功能(Fold), 预计会在2.0版本中支持.
-	* 支持中文数字打头的标题, 如: 一、这是一个标题.
-	* 中文表和图标签的完善.
-	* 考虑是否支持类似于txt2tags风格的标题表示方法.
+    http://www.vim.org/scripts/script.php?script_id=2899
+
+You are welcome to report bugs and raise your suggestion and supply means to
+implement those features. Thank you very much.
 
 ==============================================================================
-4. 偏好定制                                                *txt-options*    
+4. Options                                                *txt-options*    
 
-TxtBrowser提供了很多个性化的定制功能, 并且还在增加中, 你可以定制下面的东东:
+You could customize what you prefer to.
 
-4.1 标题级数                                                *txt-title-level*    
+4.1 customize title level                                *txt-title-level*    
 
-一般的文章三级标题足够用了. 但是有时候文章比较长的时候也许你会觉得三级标题太多
-了, 满眼都是标题, 找个小标题要拖很长的鼠标. 有时候又觉得三级标题不够, 没有完全
-列出想要的内容, 你可以在.vimrc定制自己的标题级数(未定义为3级):
+In common cases, it is enough for title to have 3 levels. But occasionally if
+the document is too long and has too much titles, it may be a little difficult
+to locate what you want to go. In other cases, you might want verbose title to
+locate. You could add the following line to your .vimrc to customize the title
+level(defaut is 3 levels).
 
 let TxtBrowser_Title_Level = 2
 
-4.2 定制自己的字典                                        *txt-dict*
+4.2 customize web dictionary                              *txt-dict*
 
-默认的在线词典是www.google.cn/dictionary, 你也可以定制你自己喜欢的词典, 方法为
-: 打开你喜欢的词典页, 查一个单词"text", 查到单词后将地址栏里的地址复制下起, 设
-为全局变量TxtBrowser_Dict_Url的值. 例如你喜欢用"www.dict.cn"查单词, 查了一个单
-词 "text"后浏览器的地址为"http://dict.cn/text", 那么在你的.vimrc里加下面的一句
-即可实现用"www.dict.cn"查单词:
+I set the google English/Chinese dictionary to the defaut dictionayr web page.
+It's easy to set your own prefered dictionary. Open your prefered dictionary
+web page and lookup the word "text" and got the url link. Copy this link(don't
+change any chars) to the following variable in your .vimrc, For example, the
+url we got when looking up the word "text" is "http://dict.cn/text", I set my
+prefered dictionay page as below in my .vimrc file:
 
 let TxtBrowser_Dict_Url='http://dict.cn/text'
 
-4.3 定制自己的搜索引擎                                        *txt-search-engine*
+4.3 customize the search engine                          *txt-search-engine*
 
-默认搜索引擎是www.google.com(google Chinese, 不同的国家和地区实际的引擎应该稍
-有区别), 你也可以定制你自己喜欢的搜索引擎, 方法和上一节定制网络字典是一样的, 
-打开你喜欢的搜索引擎, 搜一个单词"text", 搜索结束后获得该网页的url, 设为全局变
-量Txtbrowser_Search_Engine的值. 例如你喜欢用"www.baidu.com"搜索, 查了一个单词
-"text"后浏览器的地址为"http://www.baidu.com/s?wd=text&oq=text&f=3&rsp=2", 那么
-在你的.vimrc里加下面的一句即可实现用"www.baidu.com"搜索:
+The defaut search engine is www.google.com(It's google Chinese, Different
+country and diffrent district may differ from each other), You can custimize
+you prefered search engine. It's the same as set your prefered web word
+dictionayr. Open your prefered Search engine(for example www.baidu.com),  and
+search a word "text", for exampe we get the link:
+"http://www.baidu.com/s?wd=text&oq=text&f=3&rsp=2",I set my prefered search
+engine as below in my .vimrc file:
 
 let Txtbrowser_Search_Engine='http://www.baidu.com/s?wd=text&oq=text&f=3&rsp=2'
 
-4.4 更多的定制功能                                        *txt-custoize-more*
+4.4 Other options                                         *txt-custoize-more*
 
-很多其它的东东都可以定制, 如标题的格式, 自定义自己的关键字, 等. 我现在主要忙于
-TxtBrowser的稳定工作, 等有时间我会提供更多的定制选项. 同时也希望给我写信, 推荐
-您想要的定制功能. 近期可能实现的功能包括:
-
-	* 在.vimrc里定制自己的标题格式.
-	* 在.vimrc里定制自己需要高亮的文本, 以及高亮的颜色方案.
+There are many options to add, such the format of the title, keywords, etc. I'm
+busy now, but I will add then little by little. Please contact me if you have
+any suggestion.
 
 ==============================================================================
-5. 关键元素的定义                                             *txt-element*
+5. Element Definition                                      *txt-element*
 
 ------------------------------------------------------------------------------
-5.1 文本标题                                                          *txt-title*
+5.1 Text title                                          *txt-title*
 
-标题的格式:
-
-通过编号来标定标题, 如: 1，1.1，1.1.1, 注意标题应该顶格写, 数字和标题名之间最
-好留有空格. 通过数字的层数多少来设定层次, 如下面分别是三级标题的例子:
-
-1000001. 标题1 
-~顶格写,~~~~~这里留一个空格
-
-本段文字是一级标题的内容. 注意数字顶格写, 数字和后面标题名留一个空格.
-
-1000001.1 标题1.1
-
-本段文字是二级标题的内容.
-
-1000001.1.1 标题1.1.1
-
-本段文字是三级标题的内容.
-
-标签窗口最多只支持四级标题, 默认支持3级标题, 而语法高亮没有这个限制. 下面是标
-签窗口关于三级标题的定义:
+We recognize the title according to the serial numbers. For example: 1，1.1，
+1.1.1, Please note that the numbers should at the begin of the line and there
+should be some space between the numbers and the chapter name. The number of
+the symbol "." decide the level of the title. For example:
 
 --regex-txt=/^([0-9]+\.?[ \t]+)([^,]+$)/\1\2/c,content/
 --regex-txt=/^(([0-9]+\.){1}([0-9]+\.?)[ \t]+)([^,]+$)/.   \1\4/c,content/
 --regex-txt=/^(([0-9]+\.){2}([0-9]+\.?)[ \t]+)([^,]+$)/.       \1\4/c,content/
 
-下面是语法页关于标题的定义. 注意这里用到的是Vim的正则表达式(和普通的正则表达式
-稍有不同, 请参考":help regex").
+1000001. This is a test of title level 1
+~no sp, ~~~~~sp here
+
+This is an example of title level 1. Please note that there is no space at the
+begin of the line and spaces betwenn the numbers and title name.
+
+1000001.1 This is a test of title level 2
+
+content of title level 2.
+
+1000001.1.1 This is a test of title level 3
+
+content of title level 3.
+
+Tags windows only support three levels title, but hightlight has no limit of
+this. This is the definition of text title in tag windows:
+
+--regex-txt=/^([0-9]+\.?[ \t]+)([^,]+$)/\1\2/c,content/
+--regex-txt=/^(([0-9]+\.){1}([0-9]+\.?)[ \t]+)([^,]+$)/.   \1\4/c,content/
+--regex-txt=/^(([0-9]+\.){2}([0-9]+\.?)[ \t]+)([^,]+$)/.       \1\4/c,content/
+
+And this is the definition for highlight. Please here we use the vim special
+regular expression(use ":help regex" for more detail).
 
 syn match txtTitle "^\(\d\+\.\)\+\s*[^,。，]\+$"
 syn match txtTitle "^\([一二三四五六七八九十][、.]\)\+\s*[^,。，]\+$"
 syn match txtTitle "^\d\s\+.\+\s*[^,。，]$"
 
-标题元素将同时用于列出文档结构和语法高亮.
+The element are used as both file structure and syntax highlight.
 
 ------------------------------------------------------------------------------
-5.2 文本图                                                          *txt-figure*
+5.2 Text figure                                          *txt-figure*
 
-以空格打头, 后跟关键字"figure"的行定义为"文本图". 如下段文字中, 包含 "Figure 1:
-Example Message Flow"的那一行(注意该行是以空格打头的)是一个文本图. 该行将被列在
-taglist窗口中.
+Lines start with any number of space and then the keyword "figure" and then num
+is figure, for example, You should find the figure tag in the vim taglist
+window.
 
-文本图的定义在文件".ctags"里, 具体如下, 你可以根据你的需要重新定义.
+The type of the figure is defined as the following, You could modify them to
+fit your own need in the file .ctags.
 
 --regex-txt=/^[ \t]+(figure[ \t]+[0-9a-zA-Z]+([.: ]([ \t]*.+)?)?$)/\1/f,figures/i
 --regex-txt=/^[ \t]*(图[ \t]*[0-9a-zA-Z]+[.: ][ \t]*.+$)/\1/f,figures/i
+
+For examples, The following lines start with "Figure 1: Example Message Flow"
+is defined as Text figure and will be list in your vim taglist window:
 
            |  F1 MESSAGE          |                         |
            |--------------------> |  F2 MESSAGE             |
@@ -372,19 +382,23 @@ taglist窗口中.
 
                    Figure 1: Example Message Flow
 
-本元素的定义主要用于列出文件的结构图.
+The element are used as file structure.
 
 ------------------------------------------------------------------------------
-5.3 文本表                                                          *txt-table*
+5.3 Text table                                          *txt-table*
 
-以空格打头, 后跟关键字"table"的行定义为"文本表". 如下段文字中, 包含 "Table 1:
-Summary of header fields, A--O"的那一行(注意该行是以空格打头的)是一个文本图. 该
-行将被列在 taglist窗口中.
+text start with \t or space and then the keyword "table" and then num is
+table, for example, You should find the table tag in the vim taglist window.
 
-文本表的定义在文件".ctags"里, 具体如下, 你可以根据你的需要重新定义.
+The following is the defined for Text table in the file .ctags, You could
+modify them to fit your own need.
 
 --regex-txt=/^[ \t]+(table[ \t]+[0-9a-zA-Z]+([.: ]([ \t]*.+)?)?$)/\1/t,tables/i
 --regex-txt=/^[ \t]*(表[ \t]*[0-9a-zA-Z]+[.: ][ \t]*.+$)/\1/t,tables/i
+
+For examples, The following lines start with "Table 1: Summary of header
+fields, A--O" is defined as Text table and will be list in your vim taglist
+window:
 
                    Header Field       where  proxy  MESSAGE
                    __________________________________________
@@ -395,95 +409,114 @@ Summary of header fields, A--O"的那一行(注意该行是以空格打头的)�
 
                    Table 1: Summary of header fields, A--O
 
-本元素的定义主要用于列出文件的结构图.
+The element are used as file structure.
 
 ------------------------------------------------------------------------------
-5.4 文本关键词                                                 *txt-keywords*
+5.3 Text keywords                                          *txt-keywords*
 
-下面的关键字定义为"文本关键字", 其定义在"txt.vim"文件中. 它们在文本中将根据重要
-程度显示为不同的颜色(和你正在使用的coloscheme有关). 你也可以将你关心的关键字加
-入其中.
+The following words are defined as keywords. You can Add your own keywords in
+the following lines in the file txt.vim.
 
 syn keyword txtTodo todo fixme note debug comment notice
 syn keyword txtError error bug caution dropped
 
-本元素的定义主要用于语法高亮.
+The element are used as systax highlight.
 
 ------------------------------------------------------------------------------
-5.5 文本超键接                                                  *txt-url*
+5.4 Text url                                          *txt-url*
 
-文本中的超级键接定义为"文本超级键接", 主要包括网址, Email地址, ftp地址等, 请参
-考rfc1738(Uniform Resource Locators (URL))和rfc3986(Uniform Resource Identifier
-(URI)获得超级链接更多的详情, 网页上的超级链接一般显示为带下划线的蓝色, 因为我们
-也将尽量将其显示为带下划线的蓝色(具体表现根据你的coloscheme会稍有不同), 下面是
-例子:
+The url and uri is defined as text url. Please refer to rfc1738(Uniform
+Resource Locators (URL)) and rfc3986(Uniform Resource Identifier (URI):
+Generic Syntax) for url's and uri's definitions.
 
-        guoyoooping@163.com
-        http://guoyoooping.blog.163.com/blog
-        ftp://192.168.1.5/ftpboot/username/example.txt
+For example:
 
-本元素的定义主要用于语法高亮.
+    guoyoooping@163.com
+    www.pmtv.wordpress.com
+    ftp://192.168.1.5/ftpboot/username/example.txt
+
+The element are used as systax highlight.
 
 ------------------------------------------------------------------------------
-5.6 文本Email关键字                                                  *txt-email*
+5.5 Text email                                          *txt-email*
 
-Email中的关键字定义如下, 例子如下:
+Keywords that in email are defined as text email:
 
-syn match txtEmailMsg '^\s*\(From\|De\|Sent\|To\|Para\|Date\|Data\|Assunto\|Subject\):.*'
+syn match txtEmailMsg
+'^\s*\(From\|De\|Sent\|To\|Para\|Date\|Data\|Assunto\|Subject\):.*'
 syn match txtEmailQuote '^\(>\($\| \)\)\+'
 
-        From: San Zhang(R&D Center Beijing) 
-        Sent: 2008年11月27日 13:17
-        To: Si Li, Wu Wang, Liu Chen
-        Subject: RE: 你们都不踢球?
+For example, Please note these keyword From, Sent, To and Subject:
 
-本元素的定义主要用于语法高亮.
+    From: San Zhang(R&D Center Beijing) 
+    Sent: 2008年11月27日 13:17
+    To: Si Li, Wu Wang, Liu Chen
+    Subject: RE: 你们都不踢球?
+
+The element are used as systax highlight.
 
 ------------------------------------------------------------------------------
-5.7 文本引号内文字                                                  *txt-quotes*
+5.6 Text quotes                                          *txt-quotes*
 
-大多数情况下, 人们用引号把文字括起来以引起注意, 因此我们定义在引号内的文字为"文
-本引号内文字", 并为其添加语法高亮, 目的是为了引起人们的注意. 下面是定义和例子:
+Words in single quotation marks and double quotation marks are defined as text
+quotes. The following is the definition, you could modify them to fit your own
+need.
+
+Definition:
 
 syn match   txtQuotes     '["“][^"”]\+\(\n\)\=[^"”]*["”]'hs=s+1,he=e-1
 
-例子:
+For examples:
 
-        "good example"
+    "good example"
 
-本元素的定义主要用于语法高亮.
+The element are used as systax highlight.
 
 ------------------------------------------------------------------------------
-5.8 文本括号内文字                                        *txt-bracket*
+5.7 Text parentheses                                     *txt-parentheses*
 
-多数情况下, 人们需要关注用括号内的文字, 因此我们定义在括号内的文字为"文本括号内
-文字", 并为其添加语法高亮, 目的是为了引起人们的注意. 这里的括号包括圆括号, 尖括
-号, 中括号和大括号, 下面是定义和例子:
+Words in parentheses are defined as text parentheses.
+
+Definition:
 
 syn match   txtParentesis "[(（][^)）]\+\(\n\)\=[^)）]*[)）]" contains=txtUrl
+
+For examples:
+
+    (good example)
+
+The element are used as systax highlight.
+
+------------------------------------------------------------------------------
+5.8 Text bracket                                          *txt-bracket*
+
+Words in bracket marks defined as text bracket.
+
+Definition is list as the following, you could modify to fit your need:
+
 syn match txtBrackets     '<[^<]\+\(\n\)\=[^<]*>'hs=s+1,he=e-1 contains=txtUrl
 syn match txtBrackets     '\[[^\[]\+\(\n\)\=[^\[]*\]'hs=s+1,he=e-1 contains=txtUrl
 
-例子:
+For examples:
 
-        (good example)
-        <good example>
-        [good example]
+    <good example>
+    [good example]
 
-本元素的定义主要用于语法高亮.
+The element are used as systax highlight.
 
 ------------------------------------------------------------------------------
-5.9 文本列举                                                          *txt-list*
+5.9 Text list                                          *txt-list*
 
-有时人们在列举一组相似的事情时, 喜欢在这些列举的一行前冠以"*", "-"等符号, 我们
-定义以这些符号打头的行(有些符合如"5."需要前面有空格)为"文本列举". 下面是定义和
-例子:
+Lines that start with some spaces and then the symbol "*"(or the symbol "-" or
+the digit and then the symbol ")") and text.
+
+Definition is list as the following, you could modify to fit your need:
 
 syn match txtList    '^\s*[-+*.] [^ ]'me=e-1
 syn match txtList    '^\s*(\=\([0-9]\+\|[a-zA-Z]\))'
 syn match txtList "^\s\+\d\+\.\d\@!"
 
-例子:
+For examples:
 
         - item1: this is the first item.
         + item1: this is the first item.
@@ -493,20 +526,23 @@ syn match txtList "^\s\+\d\+\.\d\@!"
         a)item3: this is the third item.
         5.item3: this is the third item.
 
-本元素的定义主要用于语法高亮.
+The element is used as systax highlight.
 
 ------------------------------------------------------------------------------
-5.10 文本引用                                                  *txt-reference*
+5.10 Text reference                                          *txt-reference*
 
-有时需要引用其它人的描述或在回复邮件时需要引用原文, 这时可以高亮引用的部分.
+In case you want refer to other people's document or the replied email, You
+might highlight what you refer to, The following syntax element could highlight
+this for you.
 
-以特殊符号">"(or "|", ":")打开的部分被定义为引用, 这些符合是回复Email, 回复
-BBS常用的符号. 为了不致影响阅读原文, 语法高亮只高亮这些标识引用的符号, 正文不
-会被高亮, 就像用Email回邮件那样. 文本引用的定义如下, 你可以自由定制:
+Lines that start with special symbol ">"(or "|", ":") that often used in reply
+email, quote in the bbs, etc. To avoid reading, This syntax will only highlight
+the reference symbol excluding the content that you are refering. Definition is
+list as the following, you could modify to fit your need:
 
 syn match   txtReference '^[|>:]\(\s*[|>:]\)*'
 
-这是一个来自vim的一封邮件的例子(为了简短, 删掉了一些文字):
+This is an example from vim mail list:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Frank Shute wrote:
@@ -531,25 +567,26 @@ Thanks all,
 
 I'll check out how to configure my mailer with Google Groups for this list.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-本方法元素主要用于语法高亮.
+The element is used as systax highlight.
 
 ==============================================================================
-6. 常见的问题~                                                         *txt-faqs*
+6. Fequently Answered questions~                 *txt-faqs*
 
-6.1 有关Windows下中文文件名(或其它宽字节语言)的taglist不能显示的问题
+6.1 Windows Chinese(and others) couldn't or list irrecognizable taglist
 
-问题1: Windows操作系统下如果路径或文件名里有中文(或其它文字)字符, taglist不能
-正常显示
+Question1: On Windows, If the filename or directory name has CJK(Chinese tested
+only) chars, the taglist couldn't be shown.
 
-答: 这是taglist的问题, taglist现在的版本没有考虑不同编码的字符的转换问题, 所有
-的问题基本上只要打上下面的patch都可以解决: 如果你不熟悉diff文件和patch命令, 也
-可以直接到这里下载修正过的taglist.vim(基于 taglist.vim v4.5), 修正了这个问题,
-TxtBrowser安装后不再需要手动转换编码格式:
+Question2: When the enc doesn't equal to fenc, taglist list irrecognizably
+
+Answer: This is issue from taglist.vim which doesn't consider the transform
+between differenc enc. You could patch the following diff to solve this
+problem, If you don't be familiar with the didf and patch, you could download
+the modified taglist.vim(based on taglist.vim v4.5) and replace the old one.
 
 	http://att.newsmth.net/att.php?p.731.55149.1226.vim
 
-taglist.diff(patch命令的使用方法: patch taglist.vim taglist.diff)
+taglist.diff(usage: patch taglist.vim taglist.diff)
 |Index: taglist.vim
 |===================================================================
 |RCS file: /cygdrive/d/cvsroot/docu/script/vim/taglist/taglist.vim,v
@@ -627,89 +664,92 @@ taglist.diff(patch命令的使用方法: patch taglist.vim taglist.diff)
 |         " Highlight the tagline
 |         call s:Tlist_Window_Highlight_Line()
 |     else
-        
-6.2 文档更新后taglist好像无法及时更新.
 
-问: 文档更新后,taglist好像无法及时更新. 
+6.2 Taglist not updated after the file changed.
 
-答: 文件保存后执行"TlistUpdate"即可, 你也可以把这个命令映射成快捷键加到你的
-_vimrc里
+Question: When I change my file, The taglist is not updated.
 
-        nmap <silent> <F5> <ESC>:TlistUpdate<RETURN>
+Answer: You should call ":TlistUpdate" command manually to update your taglist
+after you change you file. It is recommended to map this command as below:
 
-6.3 taglist窗口里标题被显示多次
+    nmap <silent> <F5> <ESC>:TlistUpdate<RETURN>
 
-问: 不知道为什么现在的我文档全部显示了重复的目录，我是指在左边栏会显示如下：
+6.3 taglist show every title 2 times.
 
-        1. xxxxxxxx
-        1. xxxxxxxx
-        2. cccccccc
-        2. cccccccc
-        ...
-        ...
+问: The taglist list my title 2 times as below, why?
 
-就是说，都是重复的，不知道为什么会这样？估计是taglist的问题？盼解答并期待新版
-本。
+    1. xxxxxxxx
+    1. xxxxxxxx
+    2. cccccccc
+    2. cccccccc
+    ...
+    ...
 
-答: 出现这种情况的原因应该是你的$HOME目录还有一份.ctags文件, 你把它删除了应该就OK
-了. 由于早期的TxtBrowser使用配置文件定义标签, 新版则采用定义变量的方式定义标签
-, 两种方法都是有效的, 所以使用新的版本而保留老的.ctags文件的话, 标签可能会显示
-2次.
+Answer: You should have another .ctags file in your ./ directory. ctags read
+every congiguration in the following position and it will read twice if there
+are duplicate configuration in the following locations, Please delete the other
+configuration file.
 
-6.4 taglist窗口标题不能正常显示:
+    /ctags.cnf (on MSDOS, MSWindows only)
+    /etc/ctags.conf
+    /usr/local/etc/ctags.conf
+    $HOME/.ctags
+    $HOME/ctags.cnf (on MSDOS, MSWindows only)
+    .ctags
+    ctags.cnf (on MSDOS, MSWindows only)
 
-问: 打开taglist窗口后标题不能被正常示, 如下图所示:
+6.4 taglist show title in wrong order:
 
-        txtbrowser_cnx.txt (D:\release\1.1.6\doc)
-          content
-            .       1000001.1.1 标题1.1.1
-            .   1000001.1 标题1.1
-            .   2.1 安装插件
-            .   2.2 卸载
-            .   2.3 可能会遇到的问题
-            .   2.4 安装可选项
-            .   3.1 语法高亮功能
+Question: When I open the taglist, there are something like title, but it is
+confusing:
 
-答: 问题的原因不是标题没有被正常显示, 而是显示的顺序不对, 在taglist窗口执行
-"s"命令即可正常显示. 错误的原因是你一定在你的.vimrc里配置了tag的显示顺序(如下
-所示), 所以标题被重新排序了.
+    txtbrowser_cnx.txt (D:\release\1.1.6\doc)
+      content
+        .       1000001.1.1 标题1.1.1
+        .   1000001.1 标题1.1
+        .   2.1 安装插件
+        .   2.2 卸载
+        .   2.3 可能会遇到的问题
+        .   2.4 安装可选项
+        .   3.1 语法高亮功能
+
+Answer: The title are shown correctly but the order is wrong, put the curser to
+the taglist window and use 's' command to reorder it by alphabetical  order.
+You mush have the following configuration in your .vimrc:
 
     let Tlist_Sort_Type = "name"
 
-解决的办法是删除这个配置或者将上面的配置修改成:
+Please delete the above or change it as following:
 
-        au BufRead,BufNewFile *.txt let Tlist_Sort_Type = "order"
-
-==============================================================================
-7. 问题反馈~                                                 *txt-bug*
-
-我尽量在发布时多做测试, 争取尽量减少bug, 但是如果你发现了bug, 非常欢迎直接向我
-报告. 做为开源软件, 用户反馈是软件成熟的重要途径, 所以非常感谢您的支持. bug反
-馈可用下面的任意途径:
-
-	我的Email: mailto://guoyoooping@163.com
-	ping的博客: http://guoyoooping.blog.163.com
-	我经常去的论坛: 水木vim版
+    au BufRead,BufNewFile *.txt let Tlist_Sort_Type = "order"
 
 ==============================================================================
-8. 版权~                                                 *txt-license*
+7. Bug report~                                                 *txt-bug*
 
-GPL
+It's welcome to report bug to me and it's a very import way to improve
+Txtbrowser, you could report bug to:
+
+	guoyoooping@163.com
+	http://guoyoooping.blog.163.com
+	http://old.nabble.com/Vim---General-f883.html
 
 ==============================================================================
-9. 发行记录~                                                 *txt-changelog*
+8. License~                         *txt-license*
 
-本人写插件经验不是很丰富, 所以更新频繁, 下面仅列举重要更新.
+GPL.
+
+==============================================================================
+9. Changelog~                             *txt-changlog*
 
 2009-12-26 1.0
-        1)第一版发表
+        1)Initial upload
 2010-01-23 1.1
-	1)增加了帮助文档
-	2)去掉了插件中个人的配置
+	1) Delete some personal configuration in txt.vim.
+	2) Add the help document in both English and Chinese.
 2010-03-06 1.2
-	1)插件名正式从"txt.zip"改成"TxtBrowser"
-	2)增加从文本文件中直接打开URL的功能
-	3)修正了中文标题不能显示的bug.
+	1)Plugin name changed from "txt.zip" to "TxtBrowser"
+	2)Add utilities to browser url in vim.
+	3)bug fix for Chinese title couldn't listed.
 
 ==============================================================================
 vim:tw=78:ts=8:noet:ft=txt:
