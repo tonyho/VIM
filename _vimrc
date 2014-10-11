@@ -158,6 +158,9 @@ Bundle 'vim-scripts/taglist.vim'
 Bundle 'TxtBrowser'
 " Bundle 'winmanager'
 Bundle 'ZoomWin'
+" Align multiple line or colomn with special symbol, such as the 'Tabularize \='
+Bundle 'godlygeek/tabular'
+
 
 " -----------------------------------------------------------------------------
 "  < 编码配置 >
