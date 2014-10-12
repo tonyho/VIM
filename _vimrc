@@ -160,6 +160,7 @@ Bundle 'TxtBrowser'
 Bundle 'ZoomWin'
 " Align multiple line or colomn with special symbol, such as the 'Tabularize \='
 Bundle 'godlygeek/tabular'
+Bundle 'vivien/vim-addon-linux-coding-style'
 
 
 " -----------------------------------------------------------------------------
