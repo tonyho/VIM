@@ -110,6 +110,7 @@ endif
 " 用于更方便的管理vim插件，具体用法参考 :h vundle 帮助
 " 安装方法为在终端输入如下命令
 " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+" Then open a vim, input the :PluginInstall to install all the plugins
 
 set nocompatible                                      "禁用 Vi 兼容模式
 filetype off                                          "禁用文件类型侦测
@@ -131,29 +132,23 @@ Bundle 'Align'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'bufexplorer.zip'
 Bundle 'ccvext.vim'
-" Bundle 'oblitum/cSyntaxAfter' "Not existed anymore
 Bundle 'vim-scripts/cSyntaxAfter'
 Bundle 'Yggdroot/indentLine'
-" Bundle 'breestealth/Mark-Karkat' "Not existed anymore
 Bundle 'vim-scripts/Mark--Karkat'
-" Bundle 'minibufexpl.vim'
-" Bundle 'fholgado/minibufexpl.vim' "这个上的6.4.4版本与 Vundle 插件有一些冲突
 Bundle 'Shougo/neocomplcache'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
-" Bundle 'FromtonRouge/OmniCppComplete' " Not existed anymore
 Bundle 'vim-scripts/OmniCppComplete'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'repeat.vim'
 Bundle 'msanders/snipmate.vim'
+" Symbol definations like the source insight
 Bundle 'wesleyche/SrcExpl'
 " Bundle 'ervandew/supertab'
 Bundle 'std_c.zip'
 Bundle 'tpope/vim-surround'
-" Bundle 'scrooloose/syntastic' " Not existed anymore
 Bundle 'vim-scripts/Syntastic'
 Bundle 'majutsushi/tagbar'
-" Bundle 'netroby/taglist' " Not existed anymore
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'TxtBrowser'
 " Bundle 'winmanager'
@@ -161,7 +156,10 @@ Bundle 'ZoomWin'
 " Align multiple line or colomn with special symbol, such as the 'Tabularize \='
 Bundle 'godlygeek/tabular'
 Bundle 'vivien/vim-addon-linux-coding-style'
+" C Call for functions like the source insight
+Bundle 'hari-rangarajan/CCTree'
 
+" nnoremap <F1> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 
 " -----------------------------------------------------------------------------
 "  < 编码配置 >
@@ -200,7 +198,7 @@ set smarttab                                          "指定按一次backspace�
 " set foldmethod=marker                                "marker 折叠方式
 
 " 用空格键来开关折叠
-nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+"nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 
 " 当文件在外部被修改，自动更新该文件
 set autoread
@@ -610,9 +608,58 @@ set completeopt=menu                        "关闭预览窗口
 "  < SrcExpl 插件配置 >
 " -----------------------------------------------------------------------------
 " 增强源代码浏览，其功能就像Windows中的"Source Insight"
-" :SrcExpl                                   "打开浏览窗口
+" nnoremap <F1> :SrcExpl                                   "打开浏览窗口
 " :SrcExplClose                              "关闭浏览窗口
-" :SrcExplToggle                             "打开/闭浏览窗口
+" SrcExplToggle
+nnoremap <F5> :SrcExplToggle<CR>                             "打开/闭浏览窗口
+" // The switch of the Source Explorer 
+" nmap <F8> :SrcExplToggle<CR> 
+"
+" " // Set the height of Source Explorer window 
+let g:SrcExpl_winHeight = 8 
+"
+"" // Set 100 ms for refreshing the Source Explorer 
+let g:SrcExpl_refreshTime = 100 
+
+" // Set "F6" key to jump into the exact definition context 
+let g:SrcExpl_jumpKey = "<F6>" 
+"
+" " // Set "Space" key for back from the definition context 
+let g:SrcExpl_gobackKey = "<SPACE>" 
+"
+" " // In order to avoid conflicts, the Source Explorer should know what
+" plugins
+" " // except itself are using buffers. And you need add their buffer names
+" into
+" " // below listaccording to the command ":buffers!"
+ let g:SrcExpl_pluginList = [ 
+         \ "__Tag_List__", 
+                 \ "_NERD_tree_" 
+                     \  ] 
+
+                     " // Enable/Disable the local definition searching, and note that this is not guaranteed to work, the Source Explorer doesn't check the syntax for now. 
+                     " // It only searches for a match with the keyword
+                     " according to command 'gd' 
+let g:SrcExpl_searchLocalDef = 1 
+
+"" // Do not let the Source Explorer update the tags file when opening 
+let g:SrcExpl_isUpdateTags = 0 
+
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
+" " // create/update the tags file 
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+"
+" " // Set "<F12>" key for updating the tags file artificially 
+" let g:SrcExpl_updateTagsKey = "<F12>" 
+"
+" " // Set "<F3>" key for displaying the previous definition in the jump list 
+ let g:SrcExpl_prevDefKey = "<F3>" 
+"
+" " // Set "<F4>" key for displaying the next definition in the jump list 
+ let g:SrcExpl_nextDefKey = "<F4>"
+"                     "
+" "
+" "
 
 " " -----------------------------------------------------------------------------
 " "  < supertab 插件配置 >
@@ -678,7 +725,7 @@ au BufRead,BufNewFile *.txt setlocal ft=txt
 " " 管理各个窗口, 或者说整合各个窗口
 
 " " 常规模式下输入 F3 调用插件
-nmap <F3> :WMToggle<cr>
+" nmap <F3> :WMToggle<cr>
 
 " " 这里可以设置为多个窗口, 如'FileExplorer|TagList'
 " let g:winManagerWindowLayout='FileExplorer'

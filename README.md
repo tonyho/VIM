@@ -37,6 +37,13 @@ If error occurs, use the `l` to see the logs, or save it the a file. Usually, th
 
 About the vundle, you can refer this artcle: [How To Use Vundle to Manage Vim Plugins on a Linux VPS](https://www.digitalocean.com/community/tutorials/how-to-use-vundle-to-manage-vim-plugins-on-a-linux-vps)
     
+# Some Tips: #
+##SrcExpl: 
+1. F5--> Open the source explorer window  
+1. F3--> Previous Definition 
+1. F4--> Next Definition
+1. F6--> Goto definition
+1. SPACE --> Back from the Definition
 
 ----------
 
