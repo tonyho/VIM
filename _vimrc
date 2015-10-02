@@ -236,11 +236,15 @@ set laststatus=2                                      "启用状态栏信息
 set cmdheight=2                                       "设置命令行的高度为2，默认为1
 set cursorline                                        "突出显示当前行
 " set guifont=YaHei_Consolas_Hybrid:h10                 "设置字体:字号（字体名称空格用下划线代替）
+" For macvim, the default font size is too small
+set guifont=Monaco:h14
+" For MacVim, enter full screen mode
+" :set fu
 set nowrap                                            "设置不自动换行
 set shortmess=atI                                     "去掉欢迎界面
 " au GUIEnter * simalt ~x                              "窗口启动时自动最大化
-winpos 100 10                                         "指定窗口出现的位置，坐标原点在屏幕左上角
-set lines=38 columns=120                              "指定窗口大小，lines为高度，columns为宽度
+winpos 20 10                                         "指定窗口出现的位置，坐标原点在屏幕左上角
+set lines=60 columns=230                              "指定窗口大小，lines为高度，columns为宽度
 
 " 设置代码配色方案
 if g:isGUI
@@ -648,6 +652,7 @@ let g:SrcExpl_isUpdateTags = 0
 " // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
 " " // create/update the tags file 
 let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+" let g:SrcExpl_updateTagsCmd = "ctags ." 
 "
 " " // Set "<F12>" key for updating the tags file artificially 
 " let g:SrcExpl_updateTagsKey = "<F12>" 
