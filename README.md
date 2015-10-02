@@ -26,7 +26,11 @@ Vim/Gvim/MacVim
 These is no much different between cygwin and linux to use vim.  
 
 # For MacOS #
-Clone this repo. eg: `mkdir ~/github` `cd ~/github` `git clone https://github.com/tonyho/VIM.git`
+Clone this repo. eg:
+
+    mkdir ~/github
+    cd ~/github
+    git clone https://github.com/tonyho/VIM.git
 
 Install the macvim, for someone using the homebrew, use below commands:
 
