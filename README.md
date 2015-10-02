@@ -72,7 +72,7 @@ About the vundle, you can refer this artcle: [How To Use Vundle to Manage Vim Pl
 1. tb--> tagbar, like the taglist
 
 ## NerdTree
-1. F3--> Nerd Tree sidebar
+1. F2--> Nerd Tree sidebar
 
 ## Others
 1. cM--> Remove the ^M string at the end of line
@@ -82,6 +82,8 @@ About the vundle, you can refer this artcle: [How To Use Vundle to Manage Vim Pl
 See the [tabular plugin vimcast](http://vimcasts.org/episodes/aligning-text-with-tabular-vim/)
 
 ## ScreenShot
+A MacVim screenshot:
+
 ![ScreenShot](https://raw.githubusercontent.com/tonyho/VIM/master/docs/MacVimScreenCast.jpg?raw=true "MacVim")
 ----------
 
