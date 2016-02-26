@@ -19,10 +19,23 @@ Vim/Gvim/MacVim
  `cd ~/github` 
  `git clone https://github.com/tonyho/VIM.git`
 
-2. Install the vim(or gvim) using the proper commands, for example in Ubuntu: `sudo apt-get install vim`
-3. Install the cscope, ctags and taglist plugin. eg: `sudo apt-get install ctags cscope`
-4. Move the _vimrc file to you home directory, and rename it to .vimrc. Or make ln to it `cd ~ && ln -s  ~/github/VIM/_vimrc  .vimrc`
-5. Move the vimfiles directory to you home directory, and rename it to .vim,or ln it `ln -s  ~/github/VIM/vimfiles/ .vim` ;then clone the vundle:
+2. Install the vim(or gvim) using the proper commands, for example in Ubuntu: 
+
+ `sudo apt-get install vim`
+ 
+3. Install the cscope, ctags and taglist plugin. eg: 
+
+ `sudo apt-get install ctags cscope`
+ 
+4. Move the _vimrc file to you home directory, and rename it to .vimrc. Or make a soft link to it:
+
+ `cd ~ && ln -s  ~/github/VIM/_vimrc  .vimrc`
+
+5. Move the vimfiles directory to you home directory, and rename it to .vim,or make a soft link to it: 
+
+ `ln -s  ~/github/VIM/vimfiles/ .vim` 
+
+then clone the vundle:
 
  `git clone https://github.com/VundleVim/Vundle.vim.git  ~/.vim/bundle/vundle`
 
