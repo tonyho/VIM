@@ -139,7 +139,8 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/OmniCppComplete'
-Bundle 'Lokaltog/vim-powerline'
+" Change to use AirLine
+" Bundle 'Lokaltog/vim-powerline'
 Bundle 'repeat.vim'
 Bundle 'msanders/snipmate.vim'
 " Symbol definations like the source insight
@@ -147,7 +148,7 @@ Bundle 'wesleyche/SrcExpl'
 " Bundle 'ervandew/supertab'
 Bundle 'std_c.zip'
 Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/Syntastic'
+" Bundle 'vim-scripts/Syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'TxtBrowser'
@@ -155,9 +156,130 @@ Bundle 'TxtBrowser'
 Bundle 'ZoomWin'
 " Align multiple line or colomn with special symbol, such as the 'Tabularize \='
 Bundle 'godlygeek/tabular'
-Bundle 'vivien/vim-addon-linux-coding-style'
+" Disable for the tab is 8B
+" Bundle 'vivien/vim-addon-linux-coding-style'
 " C Call for functions like the source insight
 Bundle 'hari-rangarajan/CCTree'
+Bundle 'Valloric/YouCompleteMe'
+" Lint for many language
+Bundle 'w0rp/ale'
+" Yet another python formater
+Bundle 'google/yapf'
+" Bundle 'python-mode/python-mode'
+" For the python indent
+Bundle 'vim-scripts/indentpython.vim'
+Bundle 'kien/ctrlp.vim'
+" Python Virtual Env
+Bundle 'jmcantrell/vim-virtualenv'
+
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+"execute pathogen#infect()
+syntax on
+"filetype plugin indent on
+
+"it would be nice to set tag files by the active virtualenv here
+":set tags=~/mytags "tags for ctags and taglist
+"omnicomplete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+"------------Start Python PEP 8 stuff----------------
+" Number of spaces that a pre-existing tab is equal to.
+au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
+
+"spaces for indents
+au BufRead,BufNewFile *.py,*pyw set shiftwidth=4
+au BufRead,BufNewFile *.py,*.pyw set expandtab
+au BufRead,BufNewFile *.py set softtabstop=4
+
+" Keep indentation level from previous line:
+autocmd FileType python set autoindent
+
+" Format for python
+" au BufNewFile,BufRead *.py
+"     \ set tabstop=4 |
+"     \ set softtabstop=4 |
+"     \ set shiftwidth=4 |
+"     \ set textwidth=79 |
+"     \ set expandtab |
+"     \ set autoindent |
+"     \ set fileformat=unix |
+"     \ set encoding=utf-8 |
+
+" High light the space at the end of line
+hi BadWhitespace guifg=gray guibg=red ctermfg=gray ctermbg=red
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.go match BadWhitespace /\s\+$/
+
+"ignore files in NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$']
+
+
+if executable('ag')
+    Bundle 'gabesoft/vim-ags'
+end
+
+Bundle 'bling/vim-airline'
+Bundle 'bling/vim-bufferline'
+
+" Display the buffer list at airline status bar
+if filereadable(expand("~/.vim/plugged/vim-airline/plugin/airline.vim"))
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#buffer_nr_show = 1
+    let g:airline#extensions#tabline#fnamemod = ':t'
+endif
+
+if version >= 704 || version ==703 && has('patch005')
+    Bundle 'mbbill/undotree'
+endif
+
+Bundle 'ashfinal/vim-one'
+Bundle 'cseelus/vim-colors-lucid'
+Bundle 'NLKNguyen/papercolor-theme'
+if has("gui_running") || has("gui_vimr")
+    " colorscheme one
+    colorscheme PaperColor
+    set background=dark " for the dark version
+    " set background=light " for the light version
+else 
+    "colorscheme Tomorrow-Night-Eighties               "终端配色方案
+    "colorscheme one
+    "set t_Co=256   " This is may or may not needed.
+    "set background=light
+    colorscheme PaperColor
+    set background=dark
+endif
+
+" Ref: https://github.com/ashfinal/vimrc-config
+function! ToggleBackground()
+    if &background == "light"
+        set background=dark
+    else
+        set background=light
+    endif
+endfunction
+nnoremap <silent> <Leader>a :call ToggleBackground()<CR>
+
+" Toggle showing softwarpped continuing line
+nnoremap <silent> <Leader>k :call ToggleShowbreak()<CR>
+function! ToggleShowbreak()
+    if &showbreak == ""
+        set showbreak=+++
+    else
+        set showbreak=
+    endif
+endfunction
+
+
+Bundle 'ntpeters/vim-better-whitespace'
+" :ToggleWhitespace
+" :StripWhitespace
+
+let g:airline_theme='one'
+"let g:airline_theme='papercolor'
+
+Bundle 'fatih/vim-go'
+
 
 " nnoremap <F1> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 
@@ -237,7 +359,9 @@ set cmdheight=2                                       "设置命令行的高度�
 set cursorline                                        "突出显示当前行
 " set guifont=YaHei_Consolas_Hybrid:h10                 "设置字体:字号（字体名称空格用下划线代替）
 " For macvim, the default font size is too small
-set guifont=Monaco:h14
+" set guifont=Monaco:h14
+set guifont=Roboto_Mono_for_Powerline:h12
+
 " For MacVim, enter full screen mode
 " :set fu
 set nowrap                                            "设置不自动换行
@@ -246,12 +370,12 @@ set shortmess=atI                                     "去掉欢迎界面
 winpos 20 10                                         "指定窗口出现的位置，坐标原点在屏幕左上角
 set lines=60 columns=230                              "指定窗口大小，lines为高度，columns为宽度
 
-" 设置代码配色方案
-if g:isGUI
-    colorscheme Tomorrow-Night-Eighties               "Gvim配色方案
-else
-    colorscheme Tomorrow-Night-Eighties               "终端配色方案
-endif
+" " 设置代码配色方案
+" if g:isGUI
+"     colorscheme Tomorrow-Night-Eighties               "Gvim配色方案
+" else
+"     colorscheme Tomorrow-Night-Eighties               "终端配色方案
+" endif
 
 " 个性化状栏（这里提供两种方式，要使用其中一种去掉注释即可，不使用反之）
 " let &statusline=' %t %{&mod?(&ro?"*":"+"):(&ro?"=":" ")} %1*|%* %{&ft==""?"any":&ft} %1*|%* %{&ff} %1*|%* %{(&fenc=="")?&enc:&fenc}%{(&bomb?",BOM":"")} %1*|%* %=%1*|%* 0x%B %1*|%* (%l,%c%V) %1*|%* %L %1*|%* %P'

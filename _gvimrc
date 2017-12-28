@@ -1,0 +1,6 @@
+" set gfn=Fantasque\ Sans\ Mono\ 13
+set gfn=Roboto\ Mono\ for\ Powerline\ 12
+
+" move among buffers with CTRL, only works on gvim
+map <C-Tab> :bnext<CR>
+map <C-S-Tab> :bprev<CR>
