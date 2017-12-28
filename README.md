@@ -153,10 +153,9 @@ A MacVim screenshot:
 ----------
 
 ## Reference
-    Tabular [tabular plugin vimcast](http://vimcasts.org/episodes/aligning-text-with-tabular-vim/)
-    Ref config [Reference config](https://github.com/ashfinal/vimrc-config)
-    PowerLine fonts [PowerLine Fonts](hhttps://github.com/powerline/font)
-    Markdown CheatSheet [Markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+Ref config [Reference config](https://github.com/ashfinal/vimrc-config)
+PowerLine fonts [PowerLine Fonts](hhttps://github.com/powerline/font)
+Markdown CheatSheet [Markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
     
 ## ChangeLog
 ### 2017-12-28
