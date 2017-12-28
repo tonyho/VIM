@@ -154,7 +154,9 @@ A MacVim screenshot:
 
 ## Reference
 Ref config [Reference config](https://github.com/ashfinal/vimrc-config)
+
 PowerLine fonts [PowerLine Fonts](hhttps://github.com/powerline/font)
+
 Markdown CheatSheet [Markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
     
 ## ChangeLog
