@@ -99,6 +99,36 @@ if !g:iswindows
     endif
 endif
 
+" =============================================================================
+"                          << Tagbar for the golang >>
+" =============================================================================
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 
 " =============================================================================
 "                          << 以下为用户自定义配置 >>
@@ -126,6 +156,8 @@ endif
 " 使用Vundle来管理Vundle，这个必须要有。
 Bundle 'gmarik/vundle'
 
+Bundle 'Vimjas/vim-python-pep8-indent'
+
 " 以下为要安装或更新的插件，不同仓库都有（具体书写规范请参考帮助）
 Bundle 'a.vim'
 Bundle 'Align'
@@ -138,7 +170,7 @@ Bundle 'vim-scripts/Mark--Karkat'
 Bundle 'Shougo/neocomplcache'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/OmniCppComplete'
+"Bundle 'vim-scripts/OmniCppComplete'
 " Change to use AirLine
 " Bundle 'Lokaltog/vim-powerline'
 Bundle 'repeat.vim'
@@ -160,17 +192,19 @@ Bundle 'godlygeek/tabular'
 " Bundle 'vivien/vim-addon-linux-coding-style'
 " C Call for functions like the source insight
 Bundle 'hari-rangarajan/CCTree'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 " Lint for many language
 Bundle 'w0rp/ale'
 " Yet another python formater
 Bundle 'google/yapf'
 " Bundle 'python-mode/python-mode'
 " For the python indent
-Bundle 'vim-scripts/indentpython.vim'
+"Bundle 'vim-scripts/indentpython.vim'
 Bundle 'kien/ctrlp.vim'
 " Python Virtual Env
 Bundle 'jmcantrell/vim-virtualenv'
+
+Bundle 'tpope/vim-obsession'
 
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -182,7 +216,7 @@ syntax on
 "it would be nice to set tag files by the active virtualenv here
 ":set tags=~/mytags "tags for ctags and taglist
 "omnicomplete
-autocmd FileType python set omnifunc=pythoncomplete#Complete
+"autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 "------------Start Python PEP 8 stuff----------------
 " Number of spaces that a pre-existing tab is equal to.
@@ -209,7 +243,7 @@ autocmd FileType python set autoindent
 
 " High light the space at the end of line
 hi BadWhitespace guifg=gray guibg=red ctermfg=gray ctermbg=red
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.go match BadWhitespace /\s\+$/
+"au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.go match BadWhitespace /\s\+$/
 
 "ignore files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$']
@@ -348,7 +382,7 @@ imap <c-h> <Left>
 imap <c-l> <Right>
 
 " 每行超过80个的字符用下划线标示
-au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
+"au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
 
 " -----------------------------------------------------------------------------
 "  < 界面配置 >
@@ -357,10 +391,10 @@ set number                                            "显示行号
 set laststatus=2                                      "启用状态栏信息
 set cmdheight=2                                       "设置命令行的高度为2，默认为1
 set cursorline                                        "突出显示当前行
-" set guifont=YaHei_Consolas_Hybrid:h10                 "设置字体:字号（字体名称空格用下划线代替）
+set guifont=YaHei_Consolas_Hybrid:h10                 "设置字体:字号（字体名称空格用下划线代替）
 " For macvim, the default font size is too small
 " set guifont=Monaco:h14
-set guifont=Roboto_Mono_for_Powerline:h12
+" set guifont=Roboto_Mono_for_Powerline:h12
 
 " For MacVim, enter full screen mode
 " :set fu
@@ -428,65 +462,65 @@ let s:linux_CFlags = 'gcc\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
 let s:windows_CPPFlags = 'g++\ -fexec-charset=gbk\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
 let s:linux_CPPFlags = 'g++\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
 
-func! Compile()
-    exe ":ccl"
-    exe ":update"
-    if expand("%:e") == "c" || expand("%:e") == "cpp" || expand("%:e") == "cxx"
-        let s:Sou_Error = 0
-        let s:LastShellReturn_C = 0
-        let Sou = expand("%:p")
-        let Obj = expand("%:p:r").s:Obj_Extension
-        let Obj_Name = expand("%:p:t:r").s:Obj_Extension
-        let v:statusmsg = ''
-        if !filereadable(Obj) || (filereadable(Obj) && (getftime(Obj) < getftime(Sou)))
-            redraw!
-            if expand("%:e") == "c"
-                if g:iswindows
-                    exe ":setlocal makeprg=".s:windows_CFlags
-                else
-                    exe ":setlocal makeprg=".s:linux_CFlags
-                endif
-                echohl WarningMsg | echo " compiling..."
-                silent make
-            elseif expand("%:e") == "cpp" || expand("%:e") == "cxx"
-                if g:iswindows
-                    exe ":setlocal makeprg=".s:windows_CPPFlags
-                else
-                    exe ":setlocal makeprg=".s:linux_CPPFlags
-                endif
-                echohl WarningMsg | echo " compiling..."
-                silent make
-            endif
-            redraw!
-            if v:shell_error != 0
-                let s:LastShellReturn_C = v:shell_error
-            endif
-            if g:iswindows
-                if s:LastShellReturn_C != 0
-                    exe ":bo cope"
-                    echohl WarningMsg | echo " compilation failed"
-                else
-                    if s:ShowWarning
-                        exe ":bo cw"
-                    endif
-                    echohl WarningMsg | echo " compilation successful"
-                endif
-            else
-                if empty(v:statusmsg)
-                    echohl WarningMsg | echo " compilation successful"
-                else
-                    exe ":bo cope"
-                endif
-            endif
-        else
-            echohl WarningMsg | echo ""Obj_Name"is up to date"
-        endif
-    else
-        let s:Sou_Error = 1
-        echohl WarningMsg | echo " please choose the correct source file"
-    endif
-    exe ":setlocal makeprg=make"
-endfunc
+"func! Compile()
+"    exe ":ccl"
+"    exe ":update"
+"    if expand("%:e") == "c" || expand("%:e") == "cpp" || expand("%:e") == "cxx"
+"        let s:Sou_Error = 0
+"        let s:LastShellReturn_C = 0
+"        let Sou = expand("%:p")
+"        let Obj = expand("%:p:r").s:Obj_Extension
+"        let Obj_Name = expand("%:p:t:r").s:Obj_Extension
+"        let v:statusmsg = ''
+"        if !filereadable(Obj) || (filereadable(Obj) && (getftime(Obj) < getftime(Sou)))
+"            redraw!
+"            if expand("%:e") == "c"
+"                if g:iswindows
+"                    exe ":setlocal makeprg=".s:windows_CFlags
+"                else
+"                    exe ":setlocal makeprg=".s:linux_CFlags
+"                endif
+"                echohl WarningMsg | echo " compiling..."
+"                silent make
+"            elseif expand("%:e") == "cpp" || expand("%:e") == "cxx"
+"                if g:iswindows
+"                    exe ":setlocal makeprg=".s:windows_CPPFlags
+"                else
+"                    exe ":setlocal makeprg=".s:linux_CPPFlags
+"                endif
+"                echohl WarningMsg | echo " compiling..."
+"                silent make
+"            endif
+"            redraw!
+"            if v:shell_error != 0
+"                let s:LastShellReturn_C = v:shell_error
+"            endif
+"            if g:iswindows
+"                if s:LastShellReturn_C != 0
+"                    exe ":bo cope"
+"                    echohl WarningMsg | echo " compilation failed"
+"                else
+"                    if s:ShowWarning
+"                        exe ":bo cw"
+"                    endif
+"                    echohl WarningMsg | echo " compilation successful"
+"                endif
+"            else
+"                if empty(v:statusmsg)
+"                    echohl WarningMsg | echo " compilation successful"
+"                else
+"                    exe ":bo cope"
+"                endif
+"            endif
+"        else
+"            echohl WarningMsg | echo ""Obj_Name"is up to date"
+"        endif
+"    else
+"        let s:Sou_Error = 1
+"        echohl WarningMsg | echo " please choose the correct source file"
+"    endif
+"    exe ":setlocal makeprg=make"
+"endfunc
 
 func! Link()
     call Compile()
@@ -678,7 +712,7 @@ noremap <c-l> <c-w>l
 "  < neocomplcache 插件配置 >
 " -----------------------------------------------------------------------------
 " 关键字补全、文件路径补全、tag补全等等，各种，非常好用，速度超快。
-let g:neocomplcache_enable_at_startup = 1     "vim 启动时启用插件
+"let g:neocomplcache_enable_at_startup = 1     "vim 启动时启用插件
 " let g:neocomplcache_disable_auto_complete = 1 "不自动弹出补全列表
 " 在弹出补全列表后用 <c-p> 或 <c-n> 进行上下选择效果比较好
 
@@ -968,3 +1002,34 @@ au BufRead,BufNewFile,BufEnter * cd %:p:h
 " 注：上面配置中的"<Leader>"在本软件中设置为"\"键（引号里的反斜杠），如<Leader>t
 " 指在常规模式下按"\"键加"t"键，这里不是同时按，而是先按"\"键后按"t"键，间隔在一
 " 秒内，而<Leader>cs是先按"\"键再按"c"又再按"s"键
+
+" gotags for golang, install the gotags::
+" go get -u github.com/jstemmer/gotags
+" Use `tb` to switch the tagbar list window
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
